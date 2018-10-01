@@ -31,6 +31,7 @@ vec_t		microvolume = 1.0;
 qboolean	noprune;
 qboolean	glview;
 qboolean	nodetail;
+qboolean	nodefaultcubemap;
 qboolean	fulldetail;
 qboolean	onlyents;
 bool		onlyprops;
@@ -43,7 +44,8 @@ qboolean	noshare;
 qboolean	nosubdiv;
 qboolean	notjunc;
 qboolean	noopt;
-qboolean	nodefaultcubemap;
+bool		g_NoDetailPropBrushes = false;
+qboolean	nodetailpropbrushes;
 qboolean	leaktest;
 qboolean	verboseentities;
 qboolean	dumpcollide = false;
@@ -912,7 +914,7 @@ int RunVBSP( int argc, char **argv )
 
 	LoadCmdLineFromFile( argc, argv, mapbase, "vbsp" );
 
-	Msg( "Valve Software - vbsp.exe (%s)\n", __DATE__ );
+	Msg( "(HCC) Valve Software - vbsp.exe (%s)\n", __DATE__ );
 
 	for (i=1 ; i<argc ; i++)
 	{
@@ -1137,6 +1139,11 @@ int RunVBSP( int argc, char **argv )
 			Msg("AllowDynamicPropsAsStatic = true\n");
 			g_bAllowDynamicPropsAsStatic = true;
 		}
+		else if (!Q_stricmp(argv[i], "-nodetailpropbrushes"))
+		{
+			Msg("NoDetailPropBrushes = true\n");
+			g_NoDetailPropBrushes = true;
+		}
 		else if ( !Q_stricmp( argv[i], "-novirtualmesh"))
 		{
 			g_bNoVirtualMesh = true;
@@ -1238,6 +1245,7 @@ int RunVBSP( int argc, char **argv )
 				"  -allowdynamicpropsasstatic: Allow all models with the 'static' flag in the\n"
 				"				  model viewer to be used on prop_static, even when\n"
 				"                 their propdata doesn't contain 'allowstatic'.\n"
+				"  -nodetailpropbrushes   : Disallows generation of detail props inside of non-entity brush geometry.\n"
 				"  -snapaxial   : Snap axial planes to integer coordinates.\n"
 				"  -block # #      : Control the grid size mins that vbsp chops the level on.\n"
 				"  -blocks # # # # : Enter the mins and maxs for the grid size vbsp uses.\n"

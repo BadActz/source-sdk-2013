@@ -122,7 +122,6 @@ bool        g_bTextureShadows = false;
 bool		g_bAllowDynamicPropsAsStatic = false;
 bool        g_bDisablePropSelfShadowing = false;
 
-
 CUtlVector<byte> g_FacesVisibleToLights;
 
 RayTracingEnvironment g_RtEnv;
@@ -2400,6 +2399,37 @@ int ParseCommandLine( int argc, char **argv, bool *onlydetail )
 			Msg("AllowDynamicPropsAsStatic = true\n");
 			g_bAllowDynamicPropsAsStatic = true;
 		}
+		else if (!Q_stricmp(argv[i], "-forcestaticproplightmap"))
+		{
+			Msg("ForceStaticPropLightmap = true\n");
+			g_bForceStaticPropLightmap = true;
+		}
+		else if (!Q_stricmp(argv[i], "-forceproplightmapresx"))
+		{
+			if (++i < argc && *argv[i])
+			{
+				g_flStaticPropLightmapResX = atoi (argv[i]);
+				Msg("Forcing static prop Lightmap X resolution to %i Luxels...\n", g_flStaticPropLightmapResX);
+			}
+			else 
+			{
+				Warning("Error: expected a value after '-forceproplightmapresx'\n");
+				return -1;
+			}
+		}
+		else if (!Q_stricmp(argv[i], "-forceproplightmapresy"))
+		{
+			if (++i < argc && *argv[i])
+			{
+				g_flStaticPropLightmapResY = atoi (argv[i]);
+				Msg("Forcing static prop Lightmap Y resolution to %i Luxels...\n", g_flStaticPropLightmapResY);
+			}
+			else
+			{
+				Warning("Error: expected a value after '-forceproplightmapresy'\n");
+				return -1;
+			}
+		}
 		else if ( !Q_stricmp( argv[i], "-nossprops" ) )
 		{
 			g_bDisablePropSelfShadowing = true;
@@ -2860,7 +2890,6 @@ void PrintUsage( int argc, char **argv )
 		"                          light across a wider area.\n"
         "  -StaticPropLighting   : generate backed static prop vertex lighting\n"
         "  -StaticPropPolys   : Perform shadow tests of static props at polygon precision\n"
-		"  -AllowDX90VTX	  : Allow usage of .dx90.vtx files\n"
 		"  -IgnoreModelVersions  : Ignore .MDL and .VTX versions when loading models\n"
 		"  -AllowDynamicPropsAsStatic  : Allow all models with the 'static' flag in the\n"
 		"							    model viewer to be used on prop_static, even when\n"
@@ -2904,9 +2933,9 @@ void PrintUsage( int argc, char **argv )
 int RunVRAD( int argc, char **argv )
 {
 #if defined(_MSC_VER) && ( _MSC_VER >= 1310 )
-	Msg("Valve Software - vrad.exe SSE (" __DATE__ ")\n" );
+	Msg("(HCC) Valve Software - vrad.exe SSE (" __DATE__ ")\n" );
 #else
-	Msg("Valve Software - vrad.exe (" __DATE__ ")\n" );
+	Msg("(HCC) Valve Software - vrad.exe (" __DATE__ ")\n" );
 #endif
 
 	Msg("\n      Valve Radiosity Simulator     \n");

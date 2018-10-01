@@ -349,10 +349,6 @@ extern float	g_SunAngularExtent;
 
 extern char		source[MAX_PATH];
 
-extern bool		g_bForceStaticPropLightmap;
-extern int		g_flStaticPropLightmapResX;
-extern int		g_flStaticPropLightmapResY;
-
 // Used by incremental lighting to trivial-reject faces.
 // There is a bit in here for each face telling whether or not any of the
 // active lights can see the face.

@@ -2399,37 +2399,6 @@ int ParseCommandLine( int argc, char **argv, bool *onlydetail )
 			Msg("AllowDynamicPropsAsStatic = true\n");
 			g_bAllowDynamicPropsAsStatic = true;
 		}
-		else if (!Q_stricmp(argv[i], "-forcestaticproplightmap"))
-		{
-			Msg("ForceStaticPropLightmap = true\n");
-			g_bForceStaticPropLightmap = true;
-		}
-		else if (!Q_stricmp(argv[i], "-forceproplightmapresx"))
-		{
-			if (++i < argc && *argv[i])
-			{
-				g_flStaticPropLightmapResX = atoi (argv[i]);
-				Msg("Forcing static prop Lightmap X resolution to %i Luxels...\n", g_flStaticPropLightmapResX);
-			}
-			else 
-			{
-				Warning("Error: expected a value after '-forceproplightmapresx'\n");
-				return -1;
-			}
-		}
-		else if (!Q_stricmp(argv[i], "-forceproplightmapresy"))
-		{
-			if (++i < argc && *argv[i])
-			{
-				g_flStaticPropLightmapResY = atoi (argv[i]);
-				Msg("Forcing static prop Lightmap Y resolution to %i Luxels...\n", g_flStaticPropLightmapResY);
-			}
-			else
-			{
-				Warning("Error: expected a value after '-forceproplightmapresy'\n");
-				return -1;
-			}
-		}
 		else if ( !Q_stricmp( argv[i], "-nossprops" ) )
 		{
 			g_bDisablePropSelfShadowing = true;

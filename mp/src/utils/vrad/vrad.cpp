@@ -117,10 +117,10 @@ bool		g_bNoDetailLighting = false;
 double		g_flStartTime;
 bool		g_bStaticPropLighting = false;
 bool        g_bStaticPropPolys = false;
-bool		g_bIgnoreModelVersions = false;
 bool        g_bTextureShadows = false;
-bool		g_bAllowDynamicPropsAsStatic = false;
 bool        g_bDisablePropSelfShadowing = false;
+bool		g_bAllowDynamicPropsAsStatic = false;
+bool		g_bIgnoreModelVersions = false;
 
 CUtlVector<byte> g_FacesVisibleToLights;
 
@@ -2547,7 +2547,8 @@ int ParseCommandLine( int argc, char **argv, bool *onlydetail )
 			if ( ++i < argc )
 			{
 				luxeldensity = (float)atof (argv[i]);
-				Msg("Scaling Luxels by %f\n", luxeldensity);
+				if (luxeldensity > 1.0)
+					luxeldensity = 1.0 / luxeldensity;
 			}
 			else
 			{
@@ -2859,12 +2860,12 @@ void PrintUsage( int argc, char **argv )
 		"                          light across a wider area.\n"
         "  -StaticPropLighting   : generate backed static prop vertex lighting\n"
         "  -StaticPropPolys   : Perform shadow tests of static props at polygon precision\n"
+        "  -OnlyStaticProps   : Only perform direct static prop lighting (vrad debug option)\n"
+		"  -StaticPropNormals : when lighting static props, just show their normal vector\n"
 		"  -IgnoreModelVersions  : Ignore .MDL and .VTX versions when loading models\n"
 		"  -AllowDynamicPropsAsStatic  : Allow all models with the 'static' flag in the\n"
 		"							    model viewer to be used on prop_static, even when\n"
 		"							    their propdata doesn't contain 'allowstatic'.\n"
-        "  -OnlyStaticProps   : Only perform direct static prop lighting (vrad debug option)\n"
-		"  -StaticPropNormals : when lighting static props, just show their normal vector\n"
 		"  -textureshadows : Allows texture alpha channels to block light - rays intersecting alpha surfaces will sample the texture\n"
 		"  -noskyboxrecurse : Turn off recursion into 3d skybox (skybox shadows on world)\n"
 		"  -nossprops      : Globally disable self-shadowing on static props\n"

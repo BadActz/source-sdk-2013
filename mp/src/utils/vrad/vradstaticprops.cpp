@@ -544,13 +544,6 @@ bool LoadVTXFile( char const* pModelName, const studiohdr_t *pStudioHdr, CUtlBuf
 	Q_StripExtension( pModelName, filename, sizeof( filename ) );
 	strcat( filename, ".dx90.vtx" );
 
-	if (!LoadFile(filename, buf) )
-	{
-		Warning("Warning! dx90 not found, trying dx80 for \"%s\"\n", filename);
-		Q_StripExtension(pModelName, filename, sizeof(filename));
-		strcat(filename, ".dx80.vtx");
-	}
-
 	if ( !LoadFile( filename, buf ) )
 	{
 		Warning( "Error! Unable to load file \"%s\"\n", filename );
@@ -571,8 +564,8 @@ bool LoadVTXFile( char const* pModelName, const studiohdr_t *pStudioHdr, CUtlBuf
 			Warning("Error! Invalid VTX file version: %d, expected %d \"%s\"\n", pVtxHdr->version, OPTIMIZED_MODEL_FILE_VERSION, filename);
 			return false;
 		}
-
 	}
+
 	if ( pVtxHdr->checkSum != pStudioHdr->checksum )
 	{
 		Warning( "Error! Invalid VTX file checksum: %d, expected %d \"%s\"\n", pVtxHdr->checkSum, pStudioHdr->checksum, filename );

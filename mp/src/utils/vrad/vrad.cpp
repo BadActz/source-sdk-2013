@@ -2346,7 +2346,7 @@ void VRAD_Finish()
 	
 	char str[512];
 	GetHourMinuteSecondsString( (int)( end - g_flStartTime ), str, sizeof( str ) );
-	Msg( "%s elapsed\n", str );
+	Msg( "HCC VRAD Done, %s elapsed\n", str );
 
 	ReleasePakFileLumps();
 }

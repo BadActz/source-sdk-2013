@@ -1445,7 +1445,7 @@ int RunVBSP( int argc, char **argv )
 	
 	char str[512];
 	GetHourMinuteSecondsString( (int)( end - start ), str, sizeof( str ) );
-	Msg( "%s elapsed\n", str );
+	Msg("HCC VBSP Done, %s elapsed\n", str);
 
 	DeleteCmdLine( argc, argv );
 	ReleasePakFileLumps();

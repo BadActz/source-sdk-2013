@@ -63,7 +63,7 @@
 #define	MAX_MAP_DETAILPROPS				262144 //65536 
 #define	MAX_MAP_TEXINFO					24576 //12288
 #define MAX_MAP_TEXDATA					4096 //2048
-#define MAX_MAP_DISPINFO				2048 // GMod Max Disp 2048
+#define MAX_MAP_DISPINFO				4500 // (20 Dec 2018)Increased maximum displacement count per map to 4500 from 2048
 #define MAX_MAP_DISP_VERTS				( MAX_MAP_DISPINFO * ((1<<MAX_MAP_DISP_POWER)+1) * ((1<<MAX_MAP_DISP_POWER)+1) )
 #define MAX_MAP_DISP_TRIS				( (1 << MAX_MAP_DISP_POWER) * (1 << MAX_MAP_DISP_POWER) * 2 )
 #define MAX_DISPVERTS					NUM_DISP_POWER_VERTS( MAX_MAP_DISP_POWER )
